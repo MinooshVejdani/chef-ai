@@ -44,7 +44,7 @@ export default function Main() {
           name="ingredient"
         />
 
-        <button>Add ingredient</button>
+        <button type="submit">Add ingredient</button>
       </form>
       {message && <p className="message">{message}</p>}
 
