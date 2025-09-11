@@ -39,9 +39,13 @@ body {
 }
 
 main {
+  position: relative;
   padding: 30px 30px 10px;
 }
 
+.main-section{
+  margin-top: 100px;
+}
 .add-ingredient-form {
   display: flex;
   justify-content: center;
@@ -102,4 +106,41 @@ main {
 }
 .get-recipe-container p {
   color: rgb(120, 119, 119);
+}
+
+.reset-button {
+  background-color: #245c9c;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 7px 13px;
+  border-radius: 6px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.message {
+  position: absolute;
+  z-index: 10;
+  left: 40%;
+  color: rgb(190, 81, 81);
+  margin-top: 24px;
+  border: 1px solid #d30b0b;
+  padding: 15px 20px;
+  background-color: rgb(240, 229, 229);
+  border-radius: 5px;
+}
+
+@media (max-width: 900px) {
+  .message {
+    left: 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .get-recipe-container {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
 }
