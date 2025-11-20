@@ -1,9 +1,12 @@
 
 import React from "react";
+import { getRecipeFromMistral } from "../ai.js";
 
 export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
   const [message, setMessage] = React.useState("");
+  const [recipe, setRecipe] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
 
   const ingredientsListItems = ingredients.map((ingredient) => (
     <li key={ingredient}>{ingredient}</li>
@@ -33,6 +36,22 @@ export default function Main() {
   function removeIngredients() {
     setIngredients([]);
     setMessage("");
+    setRecipe("");
+  }
+
+  async function getRecipe() {
+    setLoading(true);
+    setMessage("");
+    
+    const recipeMarkdown = await getRecipeFromMistral(ingredients);
+    
+    if (recipeMarkdown) {
+      setRecipe(recipeMarkdown);
+    } else {
+      setMessage("Failed to generate recipe. Please try again.");
+    }
+    
+    setLoading(false);
   }
 
   return (
@@ -57,14 +76,23 @@ export default function Main() {
           </button>
           <ul className="ingredients-list">{ingredientsListItems}</ul>
 
-          {ingredients.length > 2 && (
+          {ingredients.length > 2 && !recipe && (
             <div className="get-recipe-container">
               <div>
                 <h3>Ready for a recipe?</h3>
                 <p>Generate a recipe from your list of ingredients.</p>
               </div>
-              <button>Get a recipe</button>
+              <button onClick={getRecipe} disabled={loading}>
+                {loading ? "Generating..." : "Get a recipe"}
+              </button>
             </div>
+          )}
+
+          {recipe && (
+            <section className="recipe-section">
+              <h2>Recipe Suggestion:</h2>
+              <pre style={{ whiteSpace: 'pre-wrap' }}>{recipe}</pre>
+            </section>
           )}
         </section>
       )}
