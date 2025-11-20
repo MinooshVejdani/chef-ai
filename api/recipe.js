@@ -26,6 +26,12 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: 'Ingredients array is required' });
     }
 
+    // Check if token exists
+    if (!process.env.HUGGING_FACE_TOKEN) {
+      console.error("HUGGING_FACE_TOKEN is not set");
+      return res.status(500).json({ error: 'API token not configured' });
+    }
+
     const hf = new HfInference(process.env.HUGGING_FACE_TOKEN);
     const ingredientsString = ingredients.join(", ");
 
@@ -47,6 +53,11 @@ export default async function handler(req, res) {
 
   } catch (err) {
     console.error("Mistral API error:", err);
-    res.status(500).json({ error: 'Failed to generate recipe', details: err.message });
+    console.error("Error details:", err.stack);
+    res.status(500).json({ 
+      error: 'Failed to generate recipe', 
+      details: err.message,
+      type: err.name 
+    });
   }
 }
