@@ -1,6 +1,7 @@
 
 import React from "react";
 import { getRecipeFromMistral } from "../ai.js";
+import ReactMarkdown from "react-markdown";
 
 export default function Main() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -91,7 +92,7 @@ export default function Main() {
           {recipe && (
             <section className="recipe-section">
               <h2>Recipe Suggestion:</h2>
-              <pre style={{ whiteSpace: 'pre-wrap' }}>{recipe}</pre>
+              <ReactMarkdown>{recipe}</ReactMarkdown>
             </section>
           )}
         </section>
