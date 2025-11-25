@@ -36,7 +36,7 @@ export default async function handler(req, res) {
     const ingredientsString = ingredients.join(", ");
 
     const response = await hf.chatCompletion({
-      model: "mistralai/Mistral-7B-Instruct-v0.2",
+      model: "meta-llama/Meta-Llama-3-8B-Instruct",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         {
