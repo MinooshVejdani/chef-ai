@@ -91,7 +91,7 @@ export default function Main() {
 
           {recipe && (
             <section className="recipe-section">
-              <h2>Recipe Suggestion:</h2>
+              <h4>Recipe Suggestion:</h4>
               <ReactMarkdown>{recipe}</ReactMarkdown>
             </section>
           )}
